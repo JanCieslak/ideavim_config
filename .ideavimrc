@@ -1,0 +1,97 @@
+let mapleader = " "
+
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+" Which-key
+set which-key
+set notimeout
+" let g:WhichKey_ShowVimActions = "true"
+let g:WhichKey_DefaultDelay = 300
+
+" General
+imap <c-l> <ESC>
+set scrolloff=15
+set clipboard += unnamed
+set clipboard += ideaput
+nnoremap \s :source ~/.ideavimrc<CR>
+
+nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
+
+nnoremap \a :actionlist<CR>
+
+" Terminal
+" nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
+" nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
+"
+" Git TODO
+nnoremap <Leader>ob :action Git.Branches<CR>
+
+" Window navigation
+nnoremap <c-\> :action SplitVertically<CR>
+nnoremap <c--> :action SplitHorizontally<CR>
+nnoremap <c-=> :action Unsplit<CR>
+nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
+
+nnoremap ns :action SelectInProjectView<CR>
+
+" sethandler <c-j> a:vim
+" sethandler <c-k> a:vim
+" nnoremap <a-h> <c-w>h
+" nnoremap <a-l> <c-w>l
+" nnoremap <a-j> <c-w>j
+" nnoremap <a-k> <c-w>k
+nnoremap <c-j> <c-w>h
+nnoremap <c-k> <c-w>l
+
+
+nnoremap <TAB> :action NextTab<CR>
+nnoremap <s-TAB> :action PreviousTab<CR>
+
+" nnoremap <Leader>en :action EditSourceInNewWindow<CR>
+" nnoremap <Leader>n :action NextWindow<CR>
+
+nnoremap qc :action CloseContent<CR>
+nnoremap qa :action CloseAllEditors<CR>
+nnoremap ql :action CloseAllToTheLeft<CR>
+nnoremap qr :action CloseAllToTheRight<CR>
+nnoremap qr :action CloseAllToTheRight<CR>
+nnoremap qo :action CloseAllEditorsButActive<CR>
+" TODO: Close to the left / right / other than current
+
+" Editing code
+set ideajoin
+set idearefactormode=keep
+
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+
+nnoremap ge :action GotoNextError<CR>
+nnoremap gE :action GotoPreviousError<CR>
+
+nnoremap <Leader>rt :action Refactorings.QuickListPopupAction<CR>
+
+" Macros
+nnoremap m q
+
+" Search code and code navigation
+set incsearch
+
+nnoremap <leader>s :action GotoRelated<CR>
+nnoremap <leader>h :action CallHierarchy<CR>
+nnoremap <leader>b :action ShowNavBar<CR>
+nnoremap <c-s> :action FileStructurePopup<CR>
+nnoremap <c-o> :action GotoSymbol<CR>
+nnoremap gc :action GotoClass<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap <c-x> :action HideAllWindows<CR>
+
+" Running and debugging
+nnoremap \b :action ToggleLineBreakpoint<CR>
+nnoremap ,d :action ContextDebug<CR>
+nnoremap ,r :action ContextRun<CR>
+nnoremap ,c :action RunClass<CR>
+nnoremap ,u :action Rerun<CR>
+nnoremap ,f :action RerunFailedTests<CR>
