@@ -3,28 +3,32 @@ let mapleader = " "
 " Find more examples here: https://jb.gg/share-ideavimrc
 
 " Which-key
-set which-key
-set notimeout
+" set which-key
+" set notimeout
 " let g:WhichKey_ShowVimActions = "true"
-let g:WhichKey_DefaultDelay = 300
+" set timeout = 200
+" let g:WhichKey_DefaultDelay = 300
 
 " General
 imap <c-l> <ESC>
 set scrolloff=15
-set clipboard += unnamed
-set clipboard += ideaput
+set clipboard+=unnamed
+set clipboard+=ideaput
 nnoremap \s :source ~/.ideavimrc<CR>
 
-nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
+set ideajoin
+set idearefactormode=keep
 
-nnoremap \a :actionlist<CR>
+nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
+nnoremap <Leader>cs :action NewScratchFile<CR>
+
 
 " Terminal
 " nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
 " nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
 "
 " Git TODO
-nnoremap <Leader>ob :action Git.Branches<CR>
+nnoremap <Leader>gib :action Git.Branches<CR>
 
 " Window navigation
 nnoremap <c-\> :action SplitVertically<CR>
@@ -50,17 +54,13 @@ nnoremap <s-TAB> :action PreviousTab<CR>
 " nnoremap <Leader>en :action EditSourceInNewWindow<CR>
 " nnoremap <Leader>n :action NextWindow<CR>
 
-nnoremap qc :action CloseContent<CR>
-nnoremap qa :action CloseAllEditors<CR>
-nnoremap ql :action CloseAllToTheLeft<CR>
-nnoremap qr :action CloseAllToTheRight<CR>
-nnoremap qr :action CloseAllToTheRight<CR>
-nnoremap qo :action CloseAllEditorsButActive<CR>
+nnoremap <Leader>qc :action CloseContent<CR>
+nnoremap <Leader>qa :action CloseAllEditors<CR>
+nnoremap <Leader>ql :action CloseAllToTheLeft<CR>
+nnoremap <Leader>qr :action CloseAllToTheRight<CR>
+nnoremap <Leader>qr :action CloseAllToTheRight<CR>
+nnoremap <Leader>qo :action CloseAllEditorsButActive<CR>
 " TODO: Close to the left / right / other than current
-
-" Editing code
-set ideajoin
-set idearefactormode=keep
 
 vnoremap < <gv
 vnoremap > >gv
@@ -74,7 +74,6 @@ nnoremap gE :action GotoPreviousError<CR>
 nnoremap <Leader>rt :action Refactorings.QuickListPopupAction<CR>
 
 " Macros
-nnoremap m q
 
 " Search code and code navigation
 set incsearch
@@ -92,6 +91,7 @@ nnoremap <c-x> :action HideAllWindows<CR>
 nnoremap \b :action ToggleLineBreakpoint<CR>
 nnoremap ,d :action ContextDebug<CR>
 nnoremap ,r :action ContextRun<CR>
+nnoremap ,R :action RunConfiguration<CR>
 nnoremap ,c :action RunClass<CR>
 nnoremap ,u :action Rerun<CR>
 nnoremap ,f :action RerunFailedTests<CR>
