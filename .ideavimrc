@@ -1,124 +1,80 @@
-"" Source your .vimrc
-"source ~/.vimrc
-
-"" -- Suggested options --
-" Show a few lines of context around the cursor. Note that this makes the
-" text scroll if you mouse-click near the start or end of the window.
-
-" Do incremental searching.
-"set incsearch
-
-"Don't use Ex mode, use Q for formatting.
-"map Q gq
-
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
-
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
-
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
-
 let mapleader = " "
-
-" Find more examples here: https://jb.gg/share-ideavimrc
 
 " General
 set scrolloff=15
-set clipboard += unnamed
-set clipboard += ideaput
-nnoremap \e :e ~/.ideavimrc<CR>
-nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+set incsearch
+set ignorecase
+set clipboard+=unnamed
 
-nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
-
-" Terminal
-nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
-nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
-
-" Window navigation
-nnoremap <c-\> :action SplitVertically<CR>
-nnoremap <c--> :action SplitHorizontally<CR>
-nnoremap <c-=> :action Unsplit<CR>
-nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
-
-sethandler <c-j> a:vim
-sethandler <c-k> a:vim
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-
-nnoremap <TAB> :action NextTab<CR>
-nnoremap <s-TAB> :action PreviousTab<CR>
-
-nnoremap <Leader>en :action EditSourceInNewWindow<CR>
-nnoremap <Leader>n :action NextWindow<CR>
-
-nnoremap <c-q> :action CloseContent<CR>
-nnoremap <Leader>qa :action CloseAllEditors<CR>
-
-" Editing code
+"" General ideavim
 set ideajoin
 set idearefactormode=keep
+sethandler <c-t> a:idea
 
+"" Edit/Reload ideavim config
+map \e :e ~/.ideavimrc <bar> :e ~/Documents/ideavim_config/.ideavimrc <CR>
+map \r <Action>(IdeaVim.ReloadVimRc.reload)
+
+" Window management
+
+" Window modes
+map <c-z> <Action>(ToggleDistractionFreeMode)
+
+"" Window splits
+map <c-\> <Action>(SplitVertically)
+map <c--> <Action>(SplitHorizontally)
+map <c-=> <Action>(Unsplit)
+map <c-m> <Action>(MoveEditorToOppositeTabGroup)
+
+""" Move easily between split windows
+map <c-h> <c-w>h
+map <c-l> <c-w>l
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+
+"" Closing tabs
+map <leader>qc <Action>(CloseContent)
+map <leader>qo <Action>(CloseAllEditorsButActive)
+map <leader>ql <Action>(CloseAllToTheLeft)
+map <leader>qr <Action>(CloseAllToTheRight)
+
+"" Moving between tabs
+map <TAB> <Action>(NextTab)
+map <s-TAB> <Action>(PreviousTab)
+
+" Editing
+
+"" After moving block code leave the selection
 vnoremap < <gv
 vnoremap > >gv
 
-nnoremap [[ :action MethodUp<CR>
-nnoremap ]] :action MethodDown<CR>
+" Refactoring
+map <leader>r <Action>(Refactorings.QuickListPopupAction)
 
-nnoremap zc :action CollapseRegion<CR>
-nnoremap zo :action ExpandRegion<CR>
-nnoremap <leader>zc :action CollapseAllRegions<CR>
-nnoremap <leader>zo :action ExpandAllRegions<CR>
+" Code navigation
 
-nnoremap <leader>c :action CommentByLineComment<CR>
+map gc <Action>(GotoFile)
+map gi <Action>(GotoImplementation)
+map gd <Action>(GotoDeclaration)
+map gb <Action>(Back)
+map gf <Action>(Forward)
 
-nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+"" Go to errors
+map ge <Action>(GotoNextError)
+map gE <Action>(GotoPreviousError)
 
-nnoremap <Leader>= :action ReformatCode<CR>
-nnoremap <leader>o :action OptimizeImports<CR>
+"" Go to functions
+map [[ <Action>(MethodUp)
+map ]] <Action>(MethodDown)
 
-nnoremap <c-r> :action RecentFiles<CR>
-nnoremap <leader>l :action RecentLocations<CR>
-nnoremap <leader>h :action LocalHistory.ShowHistory<CR>
-
-nnoremap ge :action GotoNextError<CR>
-nnoremap gE :action GotoPreviousError<CR>"
-
-" Search code and code navigation
-set incsearch
-
-" nnoremap <c-/> :action FindInPath<CR>
-nnoremap <c-a> :action GotoAction<CR>
-" nnoremap <c-f> :action GotoFile<CR>
-" nnoremap <leader>u :action FindUsages<CR>
-
-nnoremap <leader>s :action GotoRelated<CR>
-nnoremap <leader>h :action CallHierarchy<CR>
-nnoremap <leader>b :action ShowNavBar<CR>
-nnoremap <c-s> :action FileStructurePopup<CR>
-nnoremap <c-o> :action GotoSymbol<CR>
-nnoremap gc :action GotoClass<CR>
-nnoremap gi :action GotoImplementation<CR>
-" nnoremap gd :action GotToDeclaration<CR>
-nnoremap gp :action GotToSuperMethod<CR>
-nnoremap gt :action GotoTest<CR>
-nnoremap gb :action Back<CR>
-nnoremap gf :action Forward<CR>
-
-" Window tools
-nnoremap <c-p> :action JumpToLastWindow<CR>
-nnoremap <c-x> :action HideAllWindows<CR>
+"" Collapsing regions
+" map zc <Action>(CollapseRegion)
+" map zo <Action>(ExpandRegion)
+" map <leader>zc <Action>(CollapseAllRegions)
+" map <leader>zo <Action>(ExpandAllRegions)
 
 " Running and debugging
-nnoremap ,r :action ContextRun<CR>
-nnoremap ,c :action RunClass<CR>
-" nnoremap ,f :action ChooseRunConfiguration<CR>
-nnoremap ,t :action ActivateRunToolWindow<CR>
-nnoremap ,u :action Rerun<CR>
-
-nnoremap ,f :action RerunFailedTests<CR>
+map ,r <Action>(ContextRun)
+map ,d <Action>(ContextDebug)
+map ,c <Action>(ChooseRunConfiguration)
+map ,a <Action>(Rerun)
